@@ -1,0 +1,246 @@
+1
+console.log(location.href);
+
+2
+var kakunin = confirm("処理を実行します");
+if (kakunin == true) {
+  console.log("実行");
+} else {
+  console.log("キャンセル");
+}
+
+3
+function func() {
+    var conf = confirm("OKを押すとまた出ます");
+    if (conf == true) {
+        func();
+    } else {
+        console.log("キャンセル");
+    }
+}
+func();
+
+4
+元のHTMLファイル：
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>課題2-4</title>
+</head>
+<body>
+  <button onclick="func()">確認</button>
+  <script>
+    function func() {
+      window.open("kakunin.html", "", "width=300,height=100")
+    }
+  </script>
+</body>
+</html>
+
+ボタンを押した時に開くHTMLファイル： kakunin.html
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>課題2-4+</title>
+</head>
+<body>
+  <p>今日の晩御飯はカレーです</p>
+  <button onclick="window.close()">了解</button>
+</body>
+</html>
+
+5
+■ 1000
+● count++
+▲ count
+
+６
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>タイマー</title>
+    <script>
+      function print(data) {
+        var output = document.getElementById("output");
+        output.innerHTML += data;
+      }
+      var count;
+      var timer;
+      function start() {
+        count = 10;
+        timer = setInterval(output, 1000);
+      }
+      function output() {
+        count--;
+        if (count == 0) {
+          print("ドカーン <br>");
+          clearInterval(timer);
+        } else {
+          print(count + "秒 <br>");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="start();">開始</button>	
+    <button onclick="clearInterval(timer);">停止</button>
+    <div id="output"></div>
+  </body>
+</html>
+
+7
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>課題2-7</title>
+</head>
+<body>
+  <button onclick="setTimeout(func, 1000)">確認</button>
+  <script>
+    function func() {
+      window.open("kakunin.html", "", "width=300,height=100")
+    }
+  </script>
+</body>
+</html>
+
+9
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>課題2-9</title>
+</head>
+<body>
+  <button onclick="func()">ググれ</button>
+  <script>
+    function func() {
+      window.location.href = "http://www.google.co.jp/";
+    }
+  </script>
+</body>
+</html>
+
+10
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>課題2-10</title>
+</head>
+<body>
+  <button ondblclick="history.back()">戻る</button>
+</body>
+</html>
+
+11
+● getElementById
+▲ elm.value
+
+12
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>太郎変身</title>
+    <script>
+      function changeButton() {
+        var elm = document.getElementById("change");
+        if (elm.value == "太郎変身") {
+          elm.value = "次郎変身";
+        } else {
+          elm.value = "太郎変身";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <input type="button" id="change" value="太郎変身" onclick="changeButton();">
+  </body>
+</html>
+
+13
+● "neko"
+▲ "ver1"
+
+14
+● getElementById("problem").innerHTML
+
+15
+● getElementById
+▲ "problem"
+■ innerHTML
+
+16
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>要素の中身</title>
+    <script>
+      var menu = ["焼肉", "寿司", "カレー", "ラーメン", "アイス"];
+      var counter = 1;
+      function change() {
+        counter = (counter+1)%5; // 2,3,4,0,1,2...
+        var f1 = document.getElementById("f1");
+        var f2 = document.getElementById("f2");
+        f1.innerHTML = f2.innerHTML;
+        f2.innerHTML = menu[counter];
+      }
+    </script>
+  </head>
+  <body>
+    <div><span id="f1">焼肉</span>か<span id="f2">寿司</span>
+    かそれが問題だ</div>
+    <button onclick="change();">内容変更！</button>
+  </body>
+</html>
+
+17
+
+● time
+▲ getMinutes
+■ getSeconds
+◆ innerHTML
+
+18
+0.5秒（500）又は2秒（2000）ごとにshowTime()を呼び出し、現在時刻を更新する。
+
+19
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>要素の中身</title>
+    <script>
+      function showTime() {
+        var elm = document.getElementById("time");
+        var now = new Date();
+        var hour = ("0"+now.getHours()).substr(-2);
+        var min = ("0"+now.getMinutes()).substr(-2);
+        var sec = ("0"+now.getSeconds()).substr(-2);
+        elm.innerHTML = hour + "時" + min + "分" + sec + "秒";
+      }
+      setInterval(showTime, 1000);
+    </script>
+  </head>
+  <body>
+    <p>
+    現在時刻は、<span id="time">ここに時刻が表示されます</span>
+    です。
+    </p>
+  </body>
+</html>

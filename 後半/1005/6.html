@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>jQueryの例</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      $(function() {
+        $("#push").on("click", turnRed);
+      });
+      function turnRed() {
+        $("#area").css("color", "red");
+      }
+    </script>
+  </head>
+  <body>
+    <button id="push">押してね</button>
+    <div id="area">ここが赤くなる</div>
+  </body>
+</html>

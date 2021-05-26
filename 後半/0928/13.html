@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>スタイル変更</title>
+    <style>
+      .ver1 {background-color: blue; color: white}
+      .ver2 {background-color: yellow; color: blue}
+    </style>
+    <script>
+      function changeStyle() {
+        var elm = document.getElementById("neko");
+        if (elm.className == "ver1") {
+          elm.className = "ver2";
+        } else {
+          elm.className = "ver1";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <p id="neko" class="ver1">吾輩は猫である。<br>名前はもうある。</p>
+    <button onclick="changeStyle();">スタイル変更</button>
+  </body>
+</html>

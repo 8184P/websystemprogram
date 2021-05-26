@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>もぐらたたき</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    var num = 0;
+    var score = 0;
+    var tout;
+    $(function() {
+        $("img").on("click",check);
+        appear(); // まずはもぐら出現から
+    });
+    function appear() { // もぐら出現
+        num = Math.floor(Math.random()*9+1);
+        $("#"+num).attr("src", "mogura.png");
+        // 2000ミリ秒以内にもぐら消える
+        tout = setTimeout(vanish, Math.random()*2000);
+    }
+    function vanish() { // もぐら消える
+        $("#"+num).attr("src", "none.png");
+        num = 0;
+        // 1000ミリ秒以内にもぐら出現
+        setTimeout(appear, Math.random()*1000);
+    }
+    function check() {
+        var id = $(this).attr("id");
+        if (id == num) {
+            score++;
+            $("#score").html(score);
+            clearTimeout(tout);
+            vanish();
+        }
+    }
+    </script>
+  </head>
+  <body>
+    <div>
+    <img id="1" src="none.png">
+    <img id="2" src="none.png">
+    <img id="3" src="none.png"><br>
+    <img id="4" src="none.png">
+    <img id="5" src="none.png">
+    <img id="6" src="none.png"><br>
+    <img id="7" src="none.png">
+    <img id="8" src="none.png">
+    <img id="9" src="none.png"><br>
+    Score: <span id="score">0</span></div>
+  </body>
+</html>
+

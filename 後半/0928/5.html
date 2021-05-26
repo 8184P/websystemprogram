@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>タイマー</title>
+    <script>
+      function print(data) {
+        var output = document.getElementById("output");
+        output.innerHTML += data;
+      }
+      var count;
+      var timer;
+      function start() {
+        count = 0;
+        timer = setInterval(output, 1000);
+      }
+      function output() {
+        count++;
+        print(count + "秒経過 <br>");
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="start();">開始</button>	
+    <button onclick="clearInterval(timer);">停止</button>
+    <div id="output"></div>
+  </body>
+</html>

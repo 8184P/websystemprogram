@@ -1,0 +1,472 @@
+(1) 基本構造
+(1)問題-1
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <% out.print("<p> Hello World !</p>"); %>
+    </body>
+</html>
+
+実行結果
+Hello World !
+
+(1)問題-2
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    out.println("<!DOCTYPE html>");
+    out.println("<html>");
+    out.println("<head><title>Hello World</title></head>");
+    out.println("<body>");
+    out.println("Hello World!");
+    out.println("</body>");
+    out.println("</html>");
+%>
+
+実行結果
+Hello World!
+
+(1)問題-3
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>EvenSumJSP</title>
+    </head>
+    <body>
+        <%
+            int sum = 0;
+            for (int i=100; i<1000; i++) {
+                if (i%2 == 0) {
+                    sum += i;
+                }
+            }
+            out.println("even sum = " + sum);
+        %>
+    </body>
+</html>
+
+実行結果
+
+even sum = 247050
+
+
+(2) 繰り返し処理1
+(2)問題-1
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <%
+            for (int i = 0; i < 10; i++) {
+        %>
+                Hello World!（<%= i+1 %>回目）<br>
+        <%
+            }
+        %>
+    </body>
+</html>
+
+実行結果
+Hello World!（1回目）
+Hello World!（2回目）
+Hello World!（3回目）
+Hello World!（4回目）
+Hello World!（5回目）
+Hello World!（6回目）
+Hello World!（7回目）
+Hello World!（8回目）
+Hello World!（9回目）
+Hello World!（10回目）
+
+(2)問題-2
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+int i;
+int intNum;
+String[] strVal={"渡辺","松岡","川端","本多","川村"};
+%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>みんなにHello！！</title>
+    </head>
+    <body>
+        <h1>みんなにHello！！</h1>
+        <%
+        intNum=strVal.length;
+        for(i=0;i<intNum;i++){
+                out.println("<p>こんにちは、" + strVal[i] + "さん！</p>");
+        }
+        %>
+    </body>
+</html>
+
+実行結果
+みんなにHello！！
+こんにちは、渡辺さん！
+
+こんにちは、松岡さん！
+
+こんにちは、川端さん！
+
+こんにちは、本多さん！
+
+こんにちは、川村さん！
+
+(2)問題-3
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    int declarationCounter = 0; // 宣言のカウンタ
+    // 宣言のカウンタ値を読むスレッドセーフなメソッド
+    synchronized int getDeclarationCounter() {
+        return ++declarationCounter;
+    }
+%>
+<%
+    // スクリプトレットのカウンタもここで用意しておく
+    int scriptletCounter = 0;
+%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>宣言とスクリプトレットの比較</title>
+    </head>
+    <body>
+        宣言のカウンタ=<%= getDeclarationCounter()%> <br>
+        スクリプトレットのカウンタ=<%= ++scriptletCounter%>
+    </body>
+</html>
+
+実行結果
+宣言のカウンタ=3
+スクリプトレットのカウンタ=1
+
+
+(3) 繰り返し処理2
+(3)問題-1
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>九九表を作ってみよう</title>
+    </head>
+    <body>
+        <h1>九九表</h1>
+        <table border="1">
+        <tr>
+                <th></th><th>1</th><th>2</th><th>3</th><th>4</th>
+                <th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+        </tr>
+        <%
+        for(int i=1;i<10;i++){
+                out.println("<tr>");
+                out.println("<th>" + i + "</th>");
+                // 内側のループの開始
+                for(int j=1;j<10;j++){
+                        out.println("<td align='right' width='20'>" + (i*j) + "</td>");
+                }
+                // 内側のループの終了
+                out.println("</tr>");
+        }
+        %>
+        </table>
+    </body>
+</html>
+
+実行結果
+九九表
+1	2	3	4	5	6	7	8	9
+1	1	2	3	4	5	6	7	8	9
+2	2	4	6	8	10	12	14	16	18
+3	3	6	9	12	15	18	21	24	27
+4	4	8	12	16	20	24	28	32	36
+5	5	10	15	20	25	30	35	40	45
+6	6	12	18	24	30	36	42	48	54
+7	7	14	21	28	35	42	49	56	63
+8	8	16	24	32	40	48	56	64	72
+9	9	18	27	36	45	54	63	72	81
+
+(3)問題-2
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>1～100の間の奇数を合計する</title>
+    </head>
+    <body>
+        <h1>1～100の間の奇数を合計する</h1>
+        <%
+        int result=0;
+        for(int i=1;i<=100;i++){
+                if(i % 2 == 0){continue;}
+                result += i;
+        }
+        out.println("合計値：" + result);
+        %>
+    </body>
+</html>
+
+実行結果
+1～100の間の奇数を合計する
+合計値：2500
+
+(3)問題-3
+
+<%-- 
+    Document   : sum2
+    Created on : Dec 7, 2020, 1:15:16 AM
+    Author     : kasut
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>sum2</title>
+    </head>
+    <body>
+        <h1>100以上から1000未満までの偶数整数を合計する</h1>
+        <%
+        int result=0;
+        int i = 100;
+        while (i<1000) {
+            if(i % 2 == 0){
+                result += i;
+            }
+            i++;
+        }
+        out.println("even sum = " + result);
+        %>
+    </body>
+</html>
+
+実行結果
+100以上から1000未満までの偶数整数を合計する
+even sum = 247050
+
+(4) フォームからの入力を受け取る
+(4)問題-1
+
+---------Quest.html-------------
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>アンケート調査</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>アンケート調査</h1>
+        <form method="POST" action="Quest.jsp">
+            ●この本はおもしろいですか？　
+            <input type="radio" name="interest" value="1" checked />おもしろい！
+            <input type="radio" name="interest" value="0" />おもしろくない！　
+            <input type="submit" value="登録" />
+        </form>
+    </body>
+</html>
+
+---------Quest.jsp-------------
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>アンケート結果</title>
+    </head>
+    <body>
+        <h1>アンケート結果</h1>
+        <%
+        String strAns=request.getParameter("interest");
+        if(Integer.parseInt(strAns)==1){
+                out.println("よかったぁ！");
+        }else{
+                out.println("えぇ、なんでぇ？？？");
+        }
+        %>
+    </body>
+</html>
+
+実行結果
+アンケート結果
+よかったぁ！
+
+(4)問題-2
+
+---------Quest.html-------------
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>アンケート調査</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>アンケート調査</h1>
+        <form method="GET" action="Quest.jsp">
+            ●この本はおもしろいですか？　
+            <input type="radio" name="interest" value="1" checked />おもしろい！
+            <input type="radio" name="interest" value="0" />おもしろくない！　
+            <input type="submit" value="登録" />
+        </form>
+    </body>
+</html>
+
+実行結果
+アンケート結果
+えぇ、なんでぇ？？？
+
+(4)問題-3
+
+---------Quest1.html-------------
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>アンケート調査</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>アンケート調査</h1>
+        <form method="POST" action="Quest1.jsp">
+        ●あなたの好きな食べ物は？　
+        <select name="food">
+                <option value="3">ラーメン</option>
+                <option value="2">カレーライス</option>
+                <option value="1">ドリアン</option>
+        </select>
+        <input type="submit" value="登録" />
+        </form>
+    </body>
+</html>
+
+---------Quest1.jsp-------------
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>アンケート結果</title>
+    </head>
+    <body>
+        <h1>アンケート結果</h1>
+        <%
+        switch (Integer.parseInt(request.getParameter("food"))) {
+                case 3 : out.println("僕も大好きです");break;
+                case 2 : out.println("まぁまぁですね");break;
+                case 1 : out.println("この世の食べ物とも思えない");break;
+        }
+        %>
+    </body>
+</html>
+
+実行結果
+アンケート結果
+まぁまぁですね
+
+(4)問題-4
+
+---------Quest1.html-------------
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>アンケート調査</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>アンケート調査</h1>
+        <form method="GET" action="Quest1.jsp">
+        ●あなたの好きな食べ物は？　
+        <select name="food">
+                <option value="3">ラーメン</option>
+                <option value="2">カレーライス</option>
+                <option value="1">ドリアン</option>
+        </select>
+        <input type="submit" value="登録" />
+        </form>
+    </body>
+</html>
+
+実行結果
+アンケート結果
+この世の食べ物とも思えない
+
+(4)問題-5
+
+---------Quest2.html-------------
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>アンケート調査</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>アンケート調査</h1>
+        <form method="POST" action="Quest2.jsp">
+        ●あなたの好きな食べ物は？
+        <select name="food">
+                <option value="3">ラーメン</option>
+                <option value="2">ハンバーグ</option>
+                <option value="1">寿司</option>
+        </select>
+        <input type="submit" value="登録" />
+        </form>
+    </body>
+</html>
+
+---------Quest2.jsp-------------
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>アンケート結果</title>
+    </head>
+    <body>
+        <h1>アンケート結果</h1>
+        <%
+        switch (Integer.parseInt(request.getParameter("food"))) {
+                case 3 : out.println("好き");break;
+                case 2 : out.println("嫌い");break;
+                case 1 : out.println("大好き");break;
+        }
+        %>
+    </body>
+</html>
+
+実行結果
+アンケート結果
+大好き

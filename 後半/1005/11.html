@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>jQueryの例</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      count = 0;
+      $(function() {
+        $("#top").on("click", addTop);
+        $("#bottom").on("click", addBottom);
+        $("#clear").on("click", clear) //「クリア」ボタン
+      });
+      function addTop() {
+        count++;
+        $("#list").prepend("<li>追加("+count+")</li>");
+      }
+      function addBottom() {
+        count++;
+        $("#list").append("<li>追加("+count+")</li>");
+      }
+      // 箇条書きの内容が全て削除
+      function clear() {
+        $("li").remove();
+        count = 0;
+      }
+    </script>
+  </head>
+  <body>
+    <button id="top">最初に追加</button>
+    <button id="bottom">最後に追加</button>
+    <button id="clear">クリア</button>
+    <ul id="list">
+      <li>最初からある要素</li>
+    </ul>
+  </body>
+</html>

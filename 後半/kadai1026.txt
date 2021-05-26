@@ -1,0 +1,228 @@
+問題-1
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/HelloWorld2"})
+public class HelloWorld2 extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // text/htmlを指定
+        response.setContentType("text/html");
+        // setContentTypeメソッドで設定した後、getWriterメソッドを
+        // 呼び出して、ブラウザへの表示に使うPrintWriterオブジェクトを取得
+        PrintWriter out = response.getWriter();
+        // PrintWriterオブジェクトのprintlnメソッドの引数で渡した
+        // メッセージがブラウザに表示される
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>HELLO!!サーブレットの世界にようこそ</title>"); 
+        // 日本語のメッセージを表示したい
+        out.println("</head>");
+        out.println("<body>");
+        out.println("HELLO!!サーブレットの世界にようこそ"); 
+        // 日本語のメッセージを表示したい
+        out.println("</body>");
+        out.println("</html>");
+        // closeメソッドを呼び出すと出力終了
+        out.close();
+
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+HELLO!!??????????????
+
+
+問題-2
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/HelloWorld3"})
+public class HelloWorld3 extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // HTMLを出力するので、setContentTypeメソッドでCONTENT-TYPEに
+        //　text/htmlを指定
+        response.setContentType("text/html; charset=UTF-8");
+        // charsetで表示文字コードにUnicode(UTF-8)を使うことを指定
+        // setContentTypeメソッドで設定した後、getWriterメソッドを
+        // 呼び出して、ブラウザへの表示に使うPrintWriterオブジェクトを取得
+        PrintWriter out = response.getWriter(); 
+        // UTF-8で表示するPrintWriterオブジェクトを取得できる
+        // PrintWriterオブジェクトのprintlnメソッドの引数で渡した
+        // メッセージがブラウザに表示される
+        // printlnを呼び出すと、メッセージがUnicode(UTF-8)で表示される
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>HELLO!!サーブレットの世界にようこそ</title>"); 
+        // 日本語のメッセージを表示したい
+        out.println("</head>");
+        out.println("<body>");
+        out.println("HELLO!!サーブレットの世界にようこそ"); 
+        // 日本語のメッセージを表示したい
+        out.println("</body>");
+        out.println("</html>");
+        // closeメソッドを呼び出すと出力終了
+        out.close();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+HELLO!!サーブレットの世界にようこそ
+
+問題-3
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/PrintText1"})
+public class PrintText1 extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            // 普通のテキストを出力する
+            out.println("これはテキストです。");
+            out.println("  この行はインデントしています。");
+            out.println("    ・箇条書きにしてみました。");
+            out.println("    ・同じく箇条書きです。");
+            out.println("テキスト終わりです。");
+            out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+これはテキストです。 この行はインデントしています。 ・箇条書きにしてみました。 ・同じく箇条書きです。 テキスト終わりです。
+
+問題-4
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/PrintText2"})
+public class PrintText2 extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/plain; charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("これはテキストです。");
+            out.println("  この行はインデントしています。");
+            out.println("    ・箇条書きにしてみました。");
+            out.println("    ・同じく箇条書きです。");
+            out.println("テキスト終わりです。");
+            out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+これはテキストです。
+  この行はインデントしています。
+    ・箇条書きにしてみました。
+    ・同じく箇条書きです。
+テキスト終わりです。
+
+
+PrintText1の場合は「text/html」 で指定されて、Servletからの出力データがHTML文書の形式です。ここでは、テキストだけを出力するので、1行でテキストを表示される。
+PrintText2の場合は「text/plain」 で指定されて、Servletからの出力データがテキストの形式です。つまり、文字だけで出力する。

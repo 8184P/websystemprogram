@@ -1,0 +1,406 @@
+問題-1
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/FormInput1"})
+public class FormInput1 extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            // まず最初の部分のメッセージを表示
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>フォームからの入力を受け取るサーブレット</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("フォームからの入力を受け取るサーブレット<hr>");
+            // フォームからのデータを受け取って表示
+            out.println("あなたのお名前は：");
+            String name = request.getParameter("yourName"); 
+            // フォームからのデータを受け取る
+            out.print(name);
+            out.print(" さんですね。");
+            // 残りのメッセージを表示
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+フォームからの入力を受け取るサーブレット
+あなたのお名前は： タン さんですね。
+
+問題-2
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/FormInput2"})
+public class FormInput2 extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            // まず最初の部分のメッセージを表示
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>フォームからの入力を受け取るサーブレット その2</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("フォームからの入力を受け取るサーブレット その2<hr>");
+            // フォームからのデータを受け取って表示
+            out.println("あなたのお名前は：");
+            String name = request.getParameter("yourName"); 
+            out.print(name);
+            out.print(" さんですね。");
+            // 残りのメッセージを表示
+            out.println("</body>");
+            out.println("</html>");
+            out.close();
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+フォームからの入力を受け取るサーブレット その2
+あなたのお名前は： 日本語のタン さんですね。
+
+問題-3
+
+<!DOCTYPE HTML>
+
+<HTML>
+  <HEAD>
+    <TITLE>フォームからの入力 その2</TITLE>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </HEAD>
+  <BODY>
+    <FORM action='FormInput2' method=POST>
+      あなたのお名前は(日本語可)：<INPUT type='text' name='yourName' value=''>
+      <BR>
+      <INPUT type='submit' name='button' value='入力'>
+    </FORM>
+  </BODY>
+</HTML>
+
+GETの場合は入力されたパラメータ名とパラメータ値をURLに付加する。
+POSTの場合はURLに付加しません。
+
+問題-4
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>フォームからいろいろな入力</title>
+</head>
+<body>
+    <form action="FormParam" method="post">
+        <Table>
+            <TR><TH>テキスト</TH><TD><INPUT type=TEXT name='text' value=''></TD></TR>
+            <TR><TH>パスワード</TH><TD><INPUT type=PASSWORD name='password' value=''></TD></TR>
+            <TR><TH>非表示テキスト</TH><TD><INPUT type=HIDDEN name='hidden' value='hiddenの値'></TD></TR>
+            <TR><TH>テキストエリア</TH><TD><TEXTAREA name='textarea'></TEXTAREA></TD></TR>
+            <TR><TH>ラジオボタン</TH><TD>
+                <INPUT type=RADIO name='radio' value='radio1'>ラジオボタン1</TD><TD>
+                <INPUT type=RADIO name='radio' value='radio2'>ラジオボタン2</TD></TR>
+            <TR><TH>チェックボックス</TH><TD>
+                <INPUT type=CHECKBOX name='checkbox' value='checkbox1'>チェックボックス1</TD><TD>
+                <INPUT type=CHECKBOX name='checkbox' value='checkbox2'>チェックボックス2</TD><TD>
+                <INPUT type=CHECKBOX name='checkbox' value='checkbox3'>チェックボックス3</TD></TR>
+            <TR><TH>コンボボックス</TH><TD>
+                <SELECT name='combobox'>
+                <OPTION value='combo1' selected>コンボボックス1</OPTION>
+                <OPTION value='combo2' selected>コンボボックス2</OPTION>
+                <OPTION value='combo3' selected>コンボボックス3</OPTION></TD>
+                </SELECT></TR>
+            <TR><TH>リストボックス</TH><TD>
+                <SELECT name='listbox' size='3'>
+                <OPTION value='list1' selected>リストボックス1</OPTION>
+                <OPTION value='list2'>リストボックス2</OPTION>
+                <OPTION value='list3'>リストボックス3</OPTION></TD>
+                </SELECT></TR>
+            <TR><TH>複数選択リストボックス</TH><TD>
+                <SELECT name='multilist' size='3' multiple>
+                <OPTION value='multilist1' selected>複数選択リストボックス1</OPTION>
+                <OPTION value='multilist2'>複数選択リストボックス2</OPTION>
+                <OPTION value='multilist3' selected>複数選択リストボックス3</OPTION></TD>
+                </SELECT></TR>
+            <TR><TH>コマンドボタン</TH><TD><INPUT type=SUBMIT name='submit' value='送信'></TD></TR>
+            <TR><TH>リセットボタン</TH><TD><INPUT   type=RESET name='reset' value='リセット'></TD></TR>
+        </Table>
+    </form>
+</body>
+</html>
+ーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/FormParam"})
+public class FormParam extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>入力されたパラメータを表示するサーブレット</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<ul>");
+        java.util.Enumeration en = request.getParameterNames();
+        while (en.hasMoreElements()) {
+            String name = (String)en.nextElement();
+            String values[] = request.getParameterValues(name);
+            for (int i = 0; i < values.length; i++) {
+                out.println("<li>" + name + "=" + values[i]);
+            }
+            out.println("<hr>");
+        }
+        out.println("</ul>");
+        out.println("</body>");
+        out.println("</html>");
+        out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+text=テキスト
+password=pw123
+hidden=hiddenの値
+textarea=textarea
+radio=radio2
+checkbox=checkbox2
+checkbox=checkbox3
+combobox=combo3
+listbox=list2
+multilist=multilist3
+submit=送信
+
+問題-5
+
+URLに実行結果は同じですが、GETの場合は入力されたパラメータ名とパラメータ値をURLに付加する。
+
+問題-6
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/kuku"})
+public class Kuku extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            // まず最初の部分のメッセージを表示
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>フォームからの入力を受け取るサーブレット</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            // 九九
+            for (int i=1; i<10; i++) {
+                for (int j=1; j<10; j++) {
+                    out.println(j*i + " ");
+                }
+                out.println("<br>");
+            }
+            // 残りのメッセージを表示
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+問題-7
+XYTable.html
+
+<!DOCTYPE HTML>
+<HTML>
+  <HEAD>
+    <TITLE>九九</TITLE>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </HEAD>
+  <BODY>
+    <FORM action='XYTable' method=get>
+      行数：<INPUT type='text' name='lines' value=''>
+      <BR>
+      列数：<INPUT type='text' name='columns' value=''>
+      <INPUT type='submit' name='button' value='入力'>
+    </FORM>
+  </BODY>
+</HTML>
+
+XYTable.java
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/XYTable"})
+public class XYTable extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            // まず最初の部分のメッセージを表示
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>フォームからの入力を受け取るサーブレット</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            // 九九
+            int l = Integer.parseInt(request.getParameter("lines")); 
+            int c = Integer.parseInt(request.getParameter("columns")); 
+            for (int i=1; i<=l; i++) {
+                for (int j=1; j<=c; j++) {
+                    out.print(j*i + "&nbsp;");
+                    if ((j*i)<10) {
+                        out.print("&nbsp;&nbsp;");
+                    }
+                }
+                out.println("<br>");
+            }
+            // 残りのメッセージを表示
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+実行結果：5ｘ6
+1   2   3   4   
+2   4   6   8   
+3   6   9   12 
+4   8   12 16 
+5   10 15 20 

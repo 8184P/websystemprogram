@@ -1,0 +1,402 @@
+課題‐1
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+    public class HelloWorld0 extends HttpServlet {
+    public void doGet(HttpServletRequest request, 
+         HttpServletResponse response)
+    throws ServletException, java.io.IOException {
+        // HTMLを出力するので、setContentTypeメソッドで
+        // CONTENT-TYPEにtext/htmlを指定
+        response.setContentType("text/html;charset=UTF-8");
+
+        // setContentTypeメソッドで設定した後、getWriterメソッドを
+        // 呼び出して、ブラウザへの表示に使うPrintWriterオブジェクト
+        // を取得
+        PrintWriter out = response.getWriter();
+
+        // PrintWriterオブジェクトのprintlnメソッドの引数で渡した
+        // メッセージがブラウザに表示される
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Hello World</title>");  
+        out.println("</head>");
+        out.println("<body>");
+        out.println("Hello World!");
+        out.println("</body>");
+        out.println("</html>");
+        // closeメソッドを呼び出すと出力終了
+        out.close();
+    }
+}
+
+Hello World!
+
+課題‐2
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class HelloServlet extends HttpServlet {
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, java.io.IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet exercise</title>");  
+        out.println("</head>");
+        out.println("<body>");
+        out.println("Hello Servlet!");
+        out.println("</body>");
+        out.println("</html>");
+        out.close();
+    }
+}
+
+Hello Servlet!
+
+課題‐3
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class HelloWorld1 extends HttpServlet {
+        
+    /** Processes requests for both HTTP <code>GET</code> and 
+     * <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     */
+    protected void processRequest(HttpServletRequest request, 
+      HttpServletResponse response)
+    throws ServletException, java.io.IOException {
+        // HTMLを出力するので、setContentTypeメソッドでCONTENT-TYPEに
+        // text/htmlを指定
+        response.setContentType("text/html;charset=UTF-8");
+        // setContentTypeメソッドで設定した後、getWriterメソッドを
+        // 呼び出して、ブラウザへの表示に使うPrintWriterオブジェクト
+        // を取得
+        PrintWriter out = response.getWriter();
+        // PrintWriterオブジェクトのprintlnメソッドの引数で渡した
+        // メッセージがブラウザに表示される
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Hello World</title>");  
+        out.println("</head>");
+        out.println("<body>");
+        out.println("Hello World!");
+        out.println("</body>");
+        out.println("</html>");
+        // closeメソッドを呼び出すと出力終了
+        out.close();
+    }
+    
+    /** Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     */
+    protected void doGet(HttpServletRequest request, 
+             HttpServletResponse response)
+    throws ServletException, java.io.IOException {
+        processRequest(request, response);
+    }
+    
+    /** Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     */
+    protected void doPost(HttpServletRequest request, 
+             HttpServletResponse response)
+    throws ServletException, java.io.IOException {
+        processRequest(request, response);
+    }
+    
+    /** Returns a short description of the servlet.
+     */
+    public String getServletInfo() {
+        return "Short description";
+    }
+    
+}
+
+Hello World!
+
+課題‐4
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class SumServlet extends HttpServlet {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        // 変数に1と3と10を代入して、これらの合計を計算
+        int a = 1;
+        int b = 3;
+        int c = 10;
+        int sum = a+b+c;
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SumServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("Ans="+sum);
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+Ans=14
+
+課題‐5
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class RandServlet extends HttpServlet {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        // 変数に0以上1未満の乱数
+        double rand = Math.random()*1;
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RandServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("random="+rand);
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+random=0.36808538369083854
+
+課題‐6
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class RandServlet1 extends HttpServlet {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        // 変数に1以上100未満の乱数
+        int rand = (int)(Math.random()*100+1);
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RandServlet1</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("random integer="+rand);
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+random integer=66
+
+課題‐7
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class EvenSumServlet extends HttpServlet {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        // 100以上1000未満までの偶数整数(100,102,....,996,998)の合計を計算
+        int sum = 0;
+        for (int i=100; i<1000; i++) {
+            if (i%2 == 0) {
+                sum += i;
+            }
+        }
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet EvenSumServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("even sum = "+sum);
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+even sum = 247050
+
+課題‐8
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class OddSumServlet extends HttpServlet {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        // 100以上1000未満までの奇数整数(101,103,....,997,999) の合計を計算
+        int i = 100;
+        int sum = 0;
+        while (i < 1000) {
+            if (i%2 != 0) {
+                sum += i;
+            }
+            i++;
+        }
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet OddSumServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("odd sum = "+sum);
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+odd sum = 247500

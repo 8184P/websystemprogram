@@ -1,0 +1,716 @@
+-------------------------------------------------
+--------------------JDBCアプリ1--------------------
+-------------------------------------------------
+問題-1
+
+import java.net.*;
+import java.sql.*;
+
+public class JdbcTest5 {
+  public static void main( String args[] ) throws Exception {
+    String servername     = "localhost:63306"; 
+    String urlprefix      = "jdbc:mysql://";
+    String databasename   = "test";
+    String user           = "root";
+
+    String password = ""; 
+    String serverencoding = "UTF-8";
+  
+    String url =  urlprefix + servername + "/" + databasename + "?useUnicode=true&characterEncoding=" + serverencoding;
+
+    Connection con = null;
+    try {
+      Class.forName( "com.mysql.jdbc.Driver" );               
+      con = DriverManager.getConnection( url, user, password ); 
+      System.out.println( "Connected...." );
+      Statement st = con.createStatement();
+      String sqlStr = "SELECT * FROM fruit";
+      ResultSet result = st.executeQuery( sqlStr );
+
+      while( result.next() ) {
+        String str1 = result.getString( "no" );
+        String str2 = result.getString( "name" );
+        String str3 = result.getString( "price" );
+        System.out.println( str1 + ", " + str2 + ", " + str3);
+      }
+
+      result.close();
+      st.close();
+      con.close();
+    }
+    catch( SQLException e ) {
+      System.out.println( "Connection Failed. : " + e.toString() );
+      throw new Exception();
+    }
+    catch( Exception e ) {
+      System.out.println( "Exception! :" + e.toString() );  
+      throw new Exception();
+    }
+    finally {
+      try {
+        if ( con != null ) con.close();
+      }
+      catch(Exception e){
+        System.out.println( "Exception! :" + e.toString() );
+        throw new Exception();
+      }
+    }
+  }
+}
+
+run:
+Connected....
+1, apple, 100
+2, grape, 130
+3, banana, 90
+4, peach, 150
+5, meron, 600
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-3
+
+import java.sql.*;
+
+public class JdbcTest6 {
+	public static void main(String[] args) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			String url = "jdbc:mysql://localhost:63306/test";
+
+			String user = "root";
+			String password = "";
+			Connection conn = DriverManager.getConnection(url, user, password);
+			
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT name, price FROM fruit");
+			
+			while (rs.next()) {
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				System.out.println(name + " : " + price);
+			}
+	
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+run:
+apple : 100
+grape : 130
+banana : 90
+peach : 150
+meron : 600
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-4
+
+import java.net.*;
+import java.sql.*;
+
+public class JdbcTest50 {
+  public static void main( String args[] ) throws Exception {
+    String servername     = "localhost:63306"; 
+    String urlprefix      = "jdbc:mysql://";
+    String databasename   = "test";
+    String user           = "root";
+
+    String password = ""; 
+    String serverencoding = "UTF-8";
+  
+    String url =  urlprefix + servername + "/" + databasename + "?useUnicode=true&characterEncoding=" + serverencoding;
+  
+    Connection con = null;
+    try {
+      Class.forName( "com.mysql.jdbc.Driver" );               
+      con = DriverManager.getConnection( url, user, password ); 
+      System.out.println( "Connected...." );
+      Statement st = con.createStatement();
+      String sqlStr = "SELECT * FROM fruit1";
+      ResultSet result = st.executeQuery( sqlStr );
+    
+      while( result.next() ) {
+        String str1 = result.getString( "no" );
+        String str2 = result.getString( "name" );
+        String str3 = result.getString( "price" );
+        System.out.println( str1 + ", " + str2 + ", " + str3);
+      }
+    
+      result.close();
+      st.close();
+      con.close();
+    }
+    catch( SQLException e ) {
+      System.out.println( "Connection Failed. : " + e.toString() );
+      throw new Exception();
+    }
+    catch( Exception e ) {
+      System.out.println( "Exception! :" + e.toString() );  
+      throw new Exception();
+    }
+    finally {
+      try {
+        if ( con != null ) con.close();
+      }
+      catch(Exception e){
+        System.out.println( "Exception! :" + e.toString() );
+        throw new Exception();
+      }
+    }
+  }
+}
+
+run:
+Connected....
+1, watermeron, 2000
+2, pineapple, 500
+3, strawberry, 500
+4, cherry, 1500
+5, peach, 400
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-5
+
+import java.sql.*;
+
+public class JdbcTest61 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            String url = "jdbc:mysql://localhost:63306/test";
+
+            String user = "root";
+            String password = "";
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name, price FROM fruit1");
+            
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                System.out.println(name + " : " + price);
+            }
+    
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+watermeron : 2000
+pineapple : 500
+strawberry : 500
+cherry : 1500
+peach : 400
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-6
+
+import java.sql.*;
+
+public class JdbcTest62 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            String url = "jdbc:mysql://localhost:63306/test";
+
+            String user = "root";
+            String password = "";
+            Connection conn = DriverManager.getConnection(url, user, password);
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT hanbaicode, syohincode, price, hanbaibi FROM hanbai_tbl");
+
+            while (rs.next()) {
+                String hanbaicode = rs.getString("hanbaicode");
+                String syohincode = rs.getString("syohincode");
+                int price = rs.getInt("price");
+                String hanbaibi = rs.getString("hanbaibi");
+                System.out.println(hanbaicode + " , " + syohincode + " , " + price + " , " + hanbaibi);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+H01001 , G02002 , 130 , 2003-04-12
+H01003 , B03003 , 90 , 2003-04-29
+H01005 , A01001 , 100 , 2003-05-01
+H01010 , M02005 , 600 , 2003-05-03
+H01020 , P01004 , 150 , 2003-05-10
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-7
+
+CREATE TABLE customers_tbl (customerid INT(10) NOT NULL, customername VARCHAR(25), customeraddress VARCHAR(40), customerphone VARCHAR(100));
+
+INSERT INTO customers_tbl (customerid, customername, customeraddress, customerphone) VALUES
+(1,'Mike Barott','1756 7th St','(325)200-2378'),
+(2,'Mike Brannen','5460 7th St','(680)259-6383'),
+(3,'Mike Carroll','1152 Ave S','(108)563-6737'),
+(4,'Mike Courville','2987 15th St','(243)443-2481'),
+(5,'Mike Dodd','4360 20th St','(308)834-6776'),
+(6,'Mike Ferguson','5505 9th St','(203)860-8901'),
+(7,'Mike Gilmer','2610 Ave T','(322)421-5245'),
+(8,'Mike Hand','7162 15th St','(743)813-1043'),
+(9,'Mike Holder','2181 14th St','(746)536-8136');
+
+
+問題-8
+
+import java.sql.*;
+
+public class JdbcTest63 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:63306/test";
+            String user = "root";
+            String password = "";
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM customers_tbl");
+
+            while (rs.next()) {
+                int id = rs.getInt("customerid");
+                String name = rs.getString("customername");
+                String address = rs.getString("customeraddress");
+                String phone = rs.getString("customerphone");
+                System.out.println(id + ", " + name + ", " + address + ", " + phone);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+1, Mike Barott, 1756 7th St, (325)200-2378
+2, Mike Brannen, 5460 7th St, (680)259-6383
+3, Mike Carroll, 1152 Ave S, (108)563-6737
+4, Mike Courville, 2987 15th St, (243)443-2481
+5, Mike Dodd, 4360 20th St, (308)834-6776
+6, Mike Ferguson, 5505 9th St, (203)860-8901
+7, Mike Gilmer, 2610 Ave T, (322)421-5245
+8, Mike Hand, 7162 15th St, (743)813-1043
+9, Mike Holder, 2181 14th St, (746)536-8136
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+-------------------------------------------------
+--------------------JDBCアプリ2--------------------
+-------------------------------------------------
+問題-1
+
+import java.sql.*;
+
+public class JdbcTest7 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost:63306/test";    
+            String user = "root";
+            String password = "";
+            Connection conn = DriverManager.getConnection(url, user, password);
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name, price FROM fruit WHERE price < 100");
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                System.out.println(name + " : " + price);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+banana : 90
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-2
+
+import java.sql.*;
+
+public class JdbcTest8 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost:63306/test";    
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name, price FROM fruit WHERE price > 100 AND price < 200");
+            while ( rs.next() ) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                System.out.println(name + " : " + price);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+grape : 130
+peach : 150
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-3
+
+import java.sql.*;
+
+public class JdbcTest9 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost:63306/test";
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name, price FROM fruit ORDER BY price");
+            
+            while ( rs.next() ) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                System.out.println(name + " : " + price);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+banana : 90
+apple : 100
+grape : 130
+peach : 150
+peach : 400
+pineapple : 500
+strawberry : 500
+meron : 600
+cherry : 1500
+watermeron : 2000
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-4
+
+CREATE TABLE color (name VARCHAR(10) NOT NULL, color VARCHAR(10));
+
+INSERT INTO color (name, color) VALUES
+('apple', 'red'),
+('orange', 'orange'),
+('grape', 'purple'),
+('banana', 'yellow'),
+('meron', 'green'),
+('tomato', 'red'),
+('lemon', 'yellow'),
+('carrot', 'orange');
+
+問題-5
+
+import java.sql.*;
+
+public class JdbcTest10 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            String url = "jdbc:mysql://localhost:63306/test";
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT color, COUNT(*) AS count FROM color GROUP BY color");
+            
+            while ( rs.next() ) {
+                String color = rs.getString("color");
+                int count = rs.getInt("count");
+                System.out.println(color + " : " + count);
+            }
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+green : 1
+orange : 2
+purple : 1
+red : 2
+yellow : 2
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-6
+
+import java.sql.*;
+
+public class JdbcTest11 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            String url = "jdbc:mysql://localhost:63306/test";
+
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT fruit.name, fruit.price, color.color FROM fruit, color WHERE fruit.name = color.name");
+            
+            while ( rs.next() ) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                String color = rs.getString("color");
+                System.out.println(name + " : " + price + " : " + color);
+            }
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+apple : 100 : red
+grape : 130 : purple
+banana : 90 : yellow
+meron : 600 : green
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-7
+
+import java.sql.*;
+
+public class JdbcTest12 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            String url = "jdbc:mysql://localhost:63306/test";
+
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT f.name, f.price, c.color FROM fruit f, color c WHERE f.name = c.name");
+            
+            while ( rs.next() ) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                String color = rs.getString("color");
+                System.out.println(name + " : " + price + " : " + color);
+            }
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+apple : 100 : red
+grape : 130 : purple
+banana : 90 : yellow
+meron : 600 : green
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-8
+
+import java.sql.*;
+
+public class JdbcTest71 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            String url = "jdbc:mysql://localhost:63306/test";    
+            String user = "root";
+            String password = "";
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name, price FROM fruit1 WHERE price < 100");
+            
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                System.out.println(name + " : " + price);
+            }
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-9
+
+import java.sql.*;
+
+public class JdbcTest81 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            String url = "jdbc:mysql://localhost:63306/test";    
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name, price FROM fruit1 WHERE price > 100 AND price < 200");
+            while ( rs.next() ) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                System.out.println(name + " : " + price);
+            }
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+問題-10
+
+import java.sql.*;
+
+public class JdbcTest91 {
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost:63306/test";
+            String user = "root";
+            String password = "";
+
+            Connection conn = DriverManager.getConnection(url, user, password);
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name, price FROM fruit1 ORDER BY price");
+            
+            while ( rs.next() ) {
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                System.out.println(name + " : " + price);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+
+run:
+peach : 400
+pineapple : 500
+strawberry : 500
+cherry : 1500
+watermeron : 2000
+BUILD SUCCESSFUL (total time: 0 seconds)

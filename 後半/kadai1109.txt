@@ -1,0 +1,390 @@
+問題-1
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/PrintHeader"})
+public class PrintHeader extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet PrintHeader</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<ul>");
+            //
+            java.util.Enumeration eName = request.getHeaderNames();
+            while (eName.hasMoreElements()) {
+                String name = (String)eName.nextElement();
+                java.util.Enumeration eValue = request.getHeaders(name);
+                while (eValue.hasMoreElements()) {
+                    String value = (String)eValue.nextElement();
+                    out.println("<li>" + name + "=" + value);
+                }
+                out.println("<hr>");
+            }
+            out.println("</ul>");
+            out.println("</body>");
+            out.println("</html>");
+            out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+実行結果：
+host=localhost:8084
+user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0
+accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+accept-language=en-US,en;q=0.5
+accept-encoding=gzip, deflate
+connection=keep-alive
+upgrade-insecure-requests=1
+
+問題-2
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/PrintRequest"})
+public class PrintRequest extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet PrintRequest</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("文字エンコーディング：" + request.getCharacterEncoding() + "<br>");
+            out.println("データ本体のバイト長：" + request.getContentLength() + "<br>");
+            out.println("MIMEタイプ：" + request.getContentType() + "<br>");
+            out.println("Accept-Languageヘッダ：" + request.getLocale() + "<br>");
+            out.println("HTTPメソッド：" + request.getMethod() + "<br>");
+            out.println("プロトコルとバージョン名：" + request.getProtocol() + "<br>");
+            out.println("クライアントのIPアドレス：" + request.getRemoteAddr() + "<br>");
+            out.println("クライアントのドメイン名：" + request.getRemoteHost() + "<br>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+実行結果：
+
+文字エンコーディング：UTF-8
+データ本体のバイト長：-1
+MIMEタイプ：null
+Accept-Languageヘッダ：en_US
+HTTPメソッド：GET
+プロトコルとバージョン名：HTTP/1.1
+クライアントのIPアドレス：0:0:0:0:0:0:0:1
+クライアントのドメイン名：0:0:0:0:0:0:0:1
+
+問題-3
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/PrintURL"})
+public class PrintURL extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>URL関連情報の表示</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("RequestURL=" + request.getRequestURL());
+            out.println("<br>");
+            out.println("Scheme=" + request.getScheme());
+            out.println("<br>");
+            out.println("ServerName=" + request.getServerName());
+            out.println("<br>");
+            out.println("ServerPort=" + request.getServerPort());
+            out.println("<br>");
+            out.println("RequestURI=" + request.getRequestURI());
+            out.println("<br>");
+            out.println("ContextPath=" + request.getContextPath());
+            out.println("<br>");
+            out.println("ServletPath=" + request.getServletPath());
+            out.println("<br>");
+            out.println("PathInfo=" + request.getPathInfo());
+            out.println("<br>");
+            out.println("PathTranslated=" + request.getPathTranslated());
+            out.println("<br>");
+            out.println("QueryString=" + request.getQueryString());
+            out.println("</body>");
+            out.println("</html>");
+            out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+実行結果：
+
+RequestURL=http://localhost:8084/1109/PrintURL
+Scheme=http
+ServerName=localhost
+ServerPort=8084
+RequestURI=/1109/PrintURL
+ContextPath=/1109
+ServletPath=/PrintURL
+PathInfo=null
+PathTranslated=null
+QueryString=null
+
+問題-4
+
+URLはWeb上にあるあらゆるファイルがWeb上のどの位置にあるのかを表したもの。URIはWeb上にあるあらゆるファイルを認識するための識別子の総称で、URL（住所）とURN（名前）で構成されています。
+
+
+問題-5
+
+ HyperLink.html 
+
+<!DOCTYPE HTML>
+<HTML>
+  <HEAD>
+    <TITLE>ハイパーリンクによるサーブレット呼び出し</TITLE>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </HEAD>
+  <BODY>
+  ハイパーリンクの場合
+  <BR>
+  <A href='PrintQueryString?param=JSP%26Servlet'>リンクです</A>
+  </BODY>
+</HTML>
+
+ PrintQueryString.java
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns = {"/PrintQueryString"})
+public class PrintQueryString extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>QueryStringとパラメータの表示</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("QueryString=" + request.getQueryString());
+            out.println("<br>");
+            out.println("<pre>");
+            out.println("param=" + request.getParameter("param"));
+            out.println("</pre>");
+            out.println("</body>");
+            out.println("</html>");
+            out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
+
+実行結果：
+
+QueryString=param=JSP%26Servlet
+
+param=JSP&Servlet
+
+問題-6
+
+<!DOCTYPE HTML>
+<HTML>
+  <HEAD>
+    <TITLE>ハイパーリンクによるサーブレット呼び出し</TITLE>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </HEAD>
+  <BODY>
+  ハイパーリンク呼び出しにより、PrintHeader.javaを 実行
+  <BR>
+  <A href='PrintHeader'>リンク</A>
+  </BODY>
+</HTML>
+
+実行結果：
+host=localhost:8084
+user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:82.0) Gecko/20100101 Firefox/82.0
+accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+accept-language=en-US,en;q=0.5
+accept-encoding=gzip, deflate
+connection=keep-alive
+referer=http://localhost:8084/1109/HyperLink.html
+upgrade-insecure-requests=1 
+
+問題-7
+------ハイパーリンク----------
+<!DOCTYPE HTML>
+<HTML>
+  <HEAD>
+    <TITLE>ハイパーリンクによるサーブレット呼び出し</TITLE>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </HEAD>
+  <BODY>
+  ハイパーリンク呼び出しにより、PrintHeader.javaを 実行
+  <BR>
+  <A href='PrintHeader'>リンク</A>
+  </BODY>
+</HTML>
+
+------HTMLフォーム----------
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>問題-7</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="PrintHeader" method="get">
+            input:<input type="text" name="param">
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
+
+
+問題-8
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>問題-8</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="PrintQueryString" method="get">
+            param:<input type="text" name="param">
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
+
+実行結果：
+QueryString=param=kadai8-test
+
+param=kadai8-test
+
+問題-9
+
+URL: http://localhost:8084/1109/PrintQueryString?param=kadai9
+
+実行結果：
+
+QueryString=param=kadai9
+
+param=kadai9

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <title>JSONの例</title>
+  </head>
+  <body>
+    <script>
+    $(function() {
+        $.getJSON("array.json",
+            function(data) {
+                let str="";
+                for(let i=0; i<data.length; i++) {
+                    // 配列の各要素をstrに追加していく
+                    str += "(" + data[i] + ")";
+                }
+                // pre要素(idがdest)の内容をstrにする
+                $("#dest").html(str);
+            }
+        );
+    });
+    </script>
+
+    <pre id="dest"></pre>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>タイマー</title>
+    <script>
+      function print(data) {
+        var output = document.getElementById("output");
+        output.innerHTML += data;
+      }
+      var count;
+      var timer;
+      function start() {
+        count = 10;
+        timer = setInterval(output, 1000);
+      }
+      function output() {
+        count--;
+        // 0秒になると"ドカーン"と表示しカウントを自動的に停止
+        if (count == 0) {
+          print("0秒 ドカーン <br>");
+          clearInterval(timer);
+        } else {
+          print(count + "秒 <br>");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="start();">開始</button>	
+    <button onclick="clearInterval(timer);">停止</button>
+    <div id="output"></div>
+  </body>
+</html>

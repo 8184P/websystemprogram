@@ -1,0 +1,584 @@
+問題-1
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%!
+// サーブレットのinitメソッドに相当
+    public void jspInit() {
+        try {
+            // JDBCドライバをロード
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+%>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Fruitテーブルの内容(JSP版)</title>
+    </head>
+
+    <body>
+        <P>JSPによるデータベースのアクセス</P>
+        <table border='1'><tr><th>NO</th><th>NAME</th><th>PRICE</th></tr>
+
+            <%
+                // データベースへのアクセス開始
+                Connection con = null;
+                Statement stmt = null;
+                ResultSet rs = null;
+                try {
+                    // データベースに接続するConnectionオブジェクトの取得
+                    con = DriverManager.getConnection("jdbc:mysql://localhost:63306/test", "root", "");
+                    // データベース操作を行うためのStatementオブジェクトの取得
+                    stmt = con.createStatement();
+                    // SQL()を実行して、結果を得る
+                    rs = stmt.executeQuery("select no, name, price from fruit");
+
+                    // 得られた結果をレコードごとに表示
+                    while (rs.next()) {
+            %>
+            <tr>
+                <%-- レコードのNOフィールドを表示 --%>
+                <td><%= rs.getInt("no")%></td>
+                <%-- レコードのNAMEフィールドを表示 --%>
+                <td><%= rs.getString("name")%></td>
+                <%-- レコードのPRICEフィールドを表示 --%>
+                <td><%= rs.getInt("price")%></td>
+            </tr>
+            <%
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    // データベースとの接続をクローズ
+                    try {
+                        rs.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        stmt.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        con.close();
+                    } catch (Exception e) {
+                    }
+                }
+            %>
+
+        </table>
+    </body>
+</html>
+
+実行結果
+
+JSPによるデータベースのアクセス
+
+NO	NAME	PRICE
+1	apple	100
+2	grape	130
+3	banana	90
+4	peach	150
+5	orange	444
+
+問題-2
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%!
+// サーブレットのinitメソッドに相当
+    public void jspInit() {
+        try {
+            // JDBCドライバをロード
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+%>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Fruitテーブルの内容(JSP版)</title>
+    </head>
+
+    <body>
+        <P>JSPによるデータベースのアクセス</P>
+        <table border='1'><tr><th>NO</th><th>NAME</th><th>PRICE</th></tr>
+
+            <%
+                // データベースへのアクセス開始
+                Connection con = null;
+                Statement stmt = null;
+                ResultSet rs = null;
+                try {
+                    // データベースに接続するConnectionオブジェクトの取得
+                    con = DriverManager.getConnection("jdbc:mysql://localhost:63306/test", "root", "");
+                    // データベース操作を行うためのStatementオブジェクトの取得
+                    stmt = con.createStatement();
+                    // SQL()を実行して、結果を得る
+                    rs = stmt.executeQuery("SELECT no, name, price FROM fruit ORDER BY no DESC");
+
+                    // 得られた結果をレコードごとに表示
+                    while (rs.next()) {
+            %>
+            <tr>
+                <%-- レコードのNOフィールドを表示 --%>
+                <td><%= rs.getInt("no")%></td>
+                <%-- レコードのNAMEフィールドを表示 --%>
+                <td><%= rs.getString("name")%></td>
+                <%-- レコードのPRICEフィールドを表示 --%>
+                <td><%= rs.getInt("price")%></td>
+            </tr>
+            <%
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    // データベースとの接続をクローズ
+                    try {
+                        rs.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        stmt.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        con.close();
+                    } catch (Exception e) {
+                    }
+                }
+            %>
+
+        </table>
+    </body>
+</html>
+
+実行結果
+
+JSPによるデータベースのアクセス
+
+NO	NAME	PRICE
+5	orange	444
+4	peach	150
+3	banana	90
+2	grape	130
+1	apple	100
+
+問題-3
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%!
+// サーブレットのinitメソッドに相当
+    public void jspInit() {
+        try {
+            // JDBCドライバをロード
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+%>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Fruitテーブルの内容(JSP版)</title>
+    </head>
+
+    <body>
+        <P>JSPによるデータベースのアクセス</P>
+        <table border='1'><tr><th>NO</th><th>NAME</th><th>PRICE</th></tr>
+
+            <%
+                // データベースへのアクセス開始
+                Connection con = null;
+                Statement stmt = null;
+                ResultSet rs = null;
+                try {
+                    // データベースに接続するConnectionオブジェクトの取得
+                    con = DriverManager.getConnection("jdbc:mysql://localhost:63306/test", "root", "");
+                    // データベース操作を行うためのStatementオブジェクトの取得
+                    stmt = con.createStatement();
+                    // SQL()を実行して、結果を得る
+                    rs = stmt.executeQuery("SELECT no, name, price FROM fruit WHERE name NOT LIKE 'b%'");
+
+                    // 得られた結果をレコードごとに表示
+                    while (rs.next()) {
+            %>
+            <tr>
+                <%-- レコードのNOフィールドを表示 --%>
+                <td><%= rs.getInt("no")%></td>
+                <%-- レコードのNAMEフィールドを表示 --%>
+                <td><%= rs.getString("name")%></td>
+                <%-- レコードのPRICEフィールドを表示 --%>
+                <td><%= rs.getInt("price")%></td>
+            </tr>
+            <%
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    // データベースとの接続をクローズ
+                    try {
+                        rs.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        stmt.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        con.close();
+                    } catch (Exception e) {
+                    }
+                }
+            %>
+
+        </table>
+    </body>
+</html>
+
+実行結果
+
+JSPによるデータベースのアクセス
+
+NO	NAME	PRICE
+1	apple	100
+2	grape	130
+4	peach	150
+5	orange	444
+
+問題-4
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%!
+// サーブレットのinitメソッドに相当
+    public void jspInit() {
+        try {
+            // JDBCドライバをロード
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+%>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Fruitテーブルの内容(JSP版)</title>
+    </head>
+
+    <body>
+        <P>JSPによるデータベースのアクセス</P>
+        <table border='1'><tr><th>NO</th><th>NAME</th><th>PRICE</th></tr>
+
+            <%
+                // データベースへのアクセス開始
+                Connection con = null;
+                Statement stmt = null;
+                ResultSet rs = null;
+                try {
+                    // データベースに接続するConnectionオブジェクトの取得
+                    con = DriverManager.getConnection("jdbc:mysql://localhost:63306/test", "root", "");
+                    // データベース操作を行うためのStatementオブジェクトの取得
+                    stmt = con.createStatement();
+                    // SQL()を実行して、結果を得る
+                    rs = stmt.executeQuery("SELECT no, name, price FROM fruit WHERE name NOT LIKE 'b%'");
+
+                    // 得られた結果をレコードごとに表示
+                    int sum = 0; // 合計
+                    int count = 0; // フィールド数
+                    
+                    while (rs.next()) {
+                        int price = rs.getInt("price");
+                        sum += price;
+                        count++;
+            %>
+            <tr>
+                <%-- レコードのNOフィールドを表示 --%>
+                <td><%= rs.getInt("no")%></td>
+                <%-- レコードのNAMEフィールドを表示 --%>
+                <td><%= rs.getString("name")%></td>
+                <%-- レコードのPRICEフィールドを表示 --%>
+                <td><%= price%></td>
+            </tr>
+            <%
+                        
+                    }
+                    double avg = sum/count;  // 平均
+                    // priceフィールドの値の合計と平均を表示
+            %>
+            <tr>
+                <td colspan="2">合計</td>
+                <td><%= sum %></td>
+            </tr>
+            <tr>
+                <td colspan="2">平均</td>
+                <td><%= avg %></td>
+            </tr>
+            <%
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    // データベースとの接続をクローズ
+                    try {
+                        rs.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        stmt.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        con.close();
+                    } catch (Exception e) {
+                    }
+                }
+            %>
+
+        </table>
+    </body>
+</html>
+
+実行結果
+
+JSPによるデータベースのアクセス
+
+NO	NAME	PRICE
+1	apple	100
+2	grape	130
+4	peach	150
+5	orange	444
+合計		824
+平均		206.0
+
+問題-5
+
+<%@page contentType="text/html"  pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%!
+// サーブレットのinitメソッドに相当
+public void jspInit() {
+    try {
+        // JDBCドライバをロード
+        Class.forName("com.mysql.jdbc.Driver");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FruitテーブルのUpdate(JSP版)</title>
+</head>
+
+<body>
+<P>JSPによるデータベースのUpdate</P>
+
+<%
+        Connection con = null;
+        Statement stmt = null;
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:63306/test", "root", "");
+
+            stmt = con.createStatement();
+
+            String no = request.getParameter("no");
+            String name = request.getParameter("name");
+            String price = request.getParameter("price");
+
+            StringBuffer buf = new StringBuffer();
+            buf.append("update fruit set ");
+            buf.append("name = '");
+            buf.append(name);
+            buf.append("', price = '");
+            buf.append(price);
+            buf.append("' where no = ");
+            buf.append(no);
+            stmt.executeUpdate(buf.toString());
+            
+            try { stmt.close(); } catch (Exception e) {}
+            try { con.close(); } catch (Exception e) {}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+%>
+<jsp:forward page="JdbcFruitTable.jsp" />
+</body>
+</html>
+
+実行結果
+
+http://localhost:8084/0118/JdbcUpdate.jsp?no=5&name=mikan&price=456
+
+JSPによるデータベースのアクセス
+
+NO	NAME	PRICE
+1	apple	100
+2	grape	130
+3	banana	90
+4	peach	150
+5	mikan	456
+
+問題-6
+
+<%@page contentType="text/html"  pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%!
+// サーブレットのinitメソッドに相当
+public void jspInit() {
+    try {
+        // JDBCドライバをロード
+        Class.forName("com.mysql.jdbc.Driver");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CUSTOMER_TBLテーブルのInsert(JSP版)</title>
+</head>
+
+<body>
+<P>JSPによるデータベースのInsert</P>
+
+<%
+        Connection con = null;
+        Statement stmt = null;
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:63306/test", "root", "");
+
+            stmt = con.createStatement();
+
+            String no = request.getParameter("no");
+            String name = request.getParameter("name");
+            String price = request.getParameter("price");
+
+            StringBuffer buf = new StringBuffer();
+            buf.append("insert into fruit (");
+            buf.append("no, name, price) ");
+            buf.append("value (");
+            buf.append(no);
+            buf.append(",'");
+            buf.append(name);
+            buf.append("','");
+            buf.append(price);
+            buf.append("')");
+            stmt.executeUpdate(buf.toString());
+            
+            try { stmt.close(); } catch (Exception e) {}
+            try { con.close(); } catch (Exception e) {}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+%>
+<jsp:forward page="JdbcFruitTable.jsp" />
+</body>
+</html>
+
+実行結果
+
+http://localhost:8084/0118/JdbcInsert.jsp?no=6&name=mango&price=666
+
+JSPによるデータベースのアクセス
+
+NO	NAME	PRICE
+1	apple	100
+2	grape	130
+3	banana	90
+4	peach	150
+5	mikan	456
+6	mango	666
+
+問題-7
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%!
+// サーブレットのinitメソッドに相当
+public void jspInit() {
+    try {
+        // JDBCドライバをロード
+        Class.forName("com.mysql.jdbc.Driver");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+%>
+
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<title>FruitテーブルのDelete(JSP版)</title>
+</head>
+
+<body>
+<P>JSPによるデータベースのDelete</P>
+
+<%
+        Connection con = null;
+        Statement stmt = null;
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:63306/test", "root", "");
+
+            stmt = con.createStatement();
+
+            String no = request.getParameter("no");
+
+            StringBuffer buf = new StringBuffer();
+            buf.append("delete from fruit ");
+            buf.append("where no = ");
+            buf.append(no);
+            stmt.executeUpdate(buf.toString());
+            
+            try { stmt.close(); } catch (Exception e) {}
+            try { con.close(); } catch (Exception e) {}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+%>
+
+<jsp:forward page="JdbcFruitTable.jsp" />
+</body>
+</html>
+
+実行結果
+
+http://localhost:8084/0118/JdbcDelete.jsp?no=6
+
+JSPによるデータベースのアクセス
+
+NO	NAME	PRICE
+1	apple	100
+2	grape	130
+3	banana	90
+4	peach	150
+5	mikan	456

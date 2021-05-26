@@ -1,0 +1,50 @@
+<!DOCTYPE HTML> 
+<html> 
+
+<head> 
+	<title> 
+	How to check an element has certain 
+	CSS style using jQuery ? 
+	</title> 
+	
+	<script src= 
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> 
+	</script> 
+</head> 
+
+<body style = "text-align:center;"> 
+	
+	<h1 style="color:red"> 
+		GeeksForGeeks 
+	</h1> 
+	
+	<p id = "GFG_UP" style = 
+		"font-size: 15px; font-weight: bold;"> 
+	</p> 
+	
+	<button onclick = "GFG_Fun()"> 
+		click here 
+	</button> 
+	
+	<p id = "GFG_DOWN" style = 
+		"color:green; font-size: 20px; font-weight: bold;"> 
+	</p> 
+	
+	<script> 
+		var up = document.getElementById('GFG_UP'); 
+		var down = document.getElementById('GFG_DOWN'); 
+        
+		up.innerHTML = "Click on the button to check" 
+				+ " if H1 has style, color = green."; 
+		
+		function GFG_Fun() { 
+			if ($("h1").css("color") == "rgb(255, 0, 0)") { 
+				down.innerHTML = "H1 has CSS style, color: green"; 
+			} else {	 
+				down.innerHTML = "H1 has not CSS style, color: green"; 
+			} 
+		} 
+	</script> 
+</body> 
+
+</html> 

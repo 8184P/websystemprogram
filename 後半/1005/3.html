@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>jQueryの例</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      $(function() {
+        $("#kanto > li:odd").css("background-color", "cyan");
+      });
+    </script>
+  </head>
+  <body>
+    <ul id="kanto">
+      <li>東京</li> <li>千葉</li>
+      <li>神奈川</li> <li>埼玉</li>
+      <li>茨城</li> <li>栃木</li>
+      <li>群馬</li>
+    </ul>
+  </body>
+</html>

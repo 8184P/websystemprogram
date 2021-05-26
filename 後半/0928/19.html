@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>要素の中身</title>
+    <script>
+      function showTime() {
+        var elm = document.getElementById("time");
+        var now = new Date();
+        var hour = ("0"+now.getHours()).substr(-2);
+        var min = ("0"+now.getMinutes()).substr(-2);
+        var sec = ("0"+now.getSeconds()).substr(-2);
+        elm.innerHTML = hour + "時" + min + "分" + sec + "秒";
+      }
+      setInterval(showTime, 1000);
+    </script>
+  </head>
+  <body>
+    <p>
+    現在時刻は、<span id="time">ここに時刻が表示されます</span>
+    です。
+    </p>
+  </body>
+</html>

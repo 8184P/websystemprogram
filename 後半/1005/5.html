@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>jQueryの例</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      $(function() {
+        $("#menu > li:eq(2)").html("ピザ");
+      });
+    </script>
+  </head>
+  <body>
+    <ul id="menu">
+      <li>パスタ</li>
+      <li>カルパッチョ</li>
+      <li>リゾット</li>
+      <li>ドルチェ</li>
+    </ul>
+  </body>
+</html>

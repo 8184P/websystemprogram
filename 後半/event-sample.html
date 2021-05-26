@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"> 
+	<style>
+	div {background-color:yellow}
+	</style>
+    <title>sample1</title>
+  </head>
+  <body onload="console.log('load')">
+    <h1>Webシステムプログラミング イベントのサンプル</h1>
+    <input type="text" style="width:100px;height:30px;background-color:pink"
+      onclick="console.log('click')"
+      onchange="console.log('change')"
+      onfocus="console.log('focus')"
+      onblur="console.log('blur')"
+      onmousedown="console.log('mousedown')"
+      onmouseup="console.log('mouseup')"
+      onmouseover="console.log('mouseover')"
+      onmouseout="console.log('mouseout')"  
+      onmousemove="console.log('mousemove ('+event.offsetX+','+event.offsetY+')')" 
+      onkeydown="console.log('keydown')"
+      onkeyup="console.log('keyup')"
+      onkeypress="console.log('keypress')"
+    ></input>
+  <p>
+  ピンク色のテキスト入力欄に対する各種イベントの発生をConsoleに表示します。
+  changeイベントはエンターキーを押すと発生します。
+  </p>
+  </body>
+</html>

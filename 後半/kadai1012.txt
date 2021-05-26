@@ -1,0 +1,196 @@
+問題-1
+package kadai1012;
+
+/**
+ *
+ * @author j18121
+ */
+public class kadai1 {
+    public static void main(String[] args) {
+        int a = 1;
+        int b = 3;
+        int c = 10;
+        int sum = a+b+c;
+        System.out.println("Ans="+sum);
+    }
+}
+
+run:
+Ans=14
+
+問題-2
+
+public class kadai2 {
+    public static void main(String[] args) {
+        double r = Math.random()*1;
+        System.out.println("random="+r);
+    }
+}
+
+run:
+random=0.6133042011584565
+
+問題-3
+
+public class kadai3 {
+    public static void main(String[] args) {
+        int a = Integer.parseInt(args[0]);
+        int b = a*3;
+        System.out.println("three times="+b);
+    }
+}
+
+run:
+three times=39
+
+問題-4
+
+public class kadai4 {
+    public static void main(String[] args) {
+        int a = Integer.parseInt(args[0]);
+        int b = Integer.parseInt(args[1]);
+        int sum = a + b;
+        System.out.println("1st arg = "+a+" and 2nd arg = "+b+" sum = "+sum);
+    }
+}
+
+run:
+1st arg = 12 and 2nd arg = 34 sum = 46
+
+問題-5
+
+public class kadai5 {
+    public static void main(String[] args) {
+        int sum = 0;
+        for (int i=0; i<=100; i++) {
+            sum += i;
+        }
+        System.out.println("sum = "+sum);
+    }
+}
+
+run:
+sum = 5050
+
+問題-6
+
+public class kadai6 {
+    public static void main(String[] args) {
+        int sum = 0;
+        for (int i=0; i<=100; i++) {
+            if (i%2 != 0) {
+                sum += i;
+            }
+        }
+        System.out.println("odd sum = "+sum);
+    }
+}
+
+run:
+odd sum = 2500
+
+問題-7
+
+public class kadai7 {
+    public static void main(String[] args) {
+        int sum = 0;
+        for (int i=100; i<1000; i++) {
+            if (i%2 == 0) {
+                sum += i;
+            }
+        }
+        System.out.println("even sum = "+sum);
+    }
+}
+
+run:
+even sum = 247050
+
+問題-8
+
+public class kadai8 {
+    public static void main(String[] args) {
+        int i = 101;
+        int sum = 0;
+        while (i < 1000) {
+            if (i%2 != 0) {
+                sum += i;
+            }
+            i++;
+        }
+        System.out.println("odd sum = "+sum);
+    }
+}
+
+run:
+odd sum = 247500
+
+問題-9
+
+public class kadai9 {
+    public static void main(String[] args) {
+        double[] a = new double[10];
+        int max = 0;
+        for (int i=0; i<10; i++) {
+            a[i] = Math.random()*1;
+            if (a[i] > a[max]) {
+                max = i;
+            }
+        }
+        System.out.println("max= "+a[max]+" at index = "+max);
+    }
+}
+
+run:
+max= 0.9534039126532624 at index = 8
+
+問題-10
+
+public class kadai10 {
+    public static void main(String[] args) {
+        double[] a = new double[10];
+        int max = 0;
+        for (int i=0; i<10; i++) {
+            a[i] = Math.random()*1;
+            System.out.println(a[i]);
+        }
+        System.out.println("逆順：");
+        // 配列要素を逆順に入れ替える
+        for (int i=0; i<a.length-1; i++) {
+            for (int j = 0; j<a.length-1; j++) {
+                if (a[j] < a[j+1]) {
+                    double k = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = k;
+                }
+            }
+        }
+        // 逆順表示
+        for (int i=0; i<a.length; i++) {
+            System.out.println(a[i]);
+        }
+    }
+}
+
+run:
+0.7166180709473738
+0.2722581759879329
+0.911492146687607
+0.21331153892519217
+0.7336077954342408
+0.35554405894496566
+0.16357942347349308
+0.8018602012746154
+0.2428461914407649
+0.618517948413443
+逆順：
+0.911492146687607
+0.8018602012746154
+0.7336077954342408
+0.7166180709473738
+0.618517948413443
+0.35554405894496566
+0.2722581759879329
+0.2428461914407649
+0.21331153892519217
+0.16357942347349308

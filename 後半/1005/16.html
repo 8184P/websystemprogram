@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <title>JSONの例</title>
+  </head>
+  <body>
+    <script>
+    $(function() {
+        $.getJSON("object.json",
+            function(data) {
+                // プロパティ名(name, price)を指定
+                var str = "name=" + data.name + "\n";
+                str += "price=" + data.price + "\n";
+                $("#dest").html(str);
+            }
+        );
+    });
+    </script>
+    <pre id="dest"></pre>
+  </body>
+</html>
