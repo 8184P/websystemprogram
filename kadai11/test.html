@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset=UTF-8> 
+    <title>Webページへの出力例</title>
+    <script>
+      function print(data) {
+        var output = document.getElementById("output");
+        output.innerHTML += data;
+      }
+      function println(data) { 
+        if (data == undefined) print("<br>");
+        else print(data+"<br>");
+      }
+    </script>
+  </head>
+  <body>
+
+    <div id="output"></div>
+
+    <script>
+var c = 30, d = 20;
+var taihi = c;
+c = d;
+d = taihi;
+console.log("c="+c);
+console.log("d="+d);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+2
+
+mysql> select count(*) from fruit where price >= 100;
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.000 sec)
+
+3
+
+mysql> select sum(price) from fruit;
++------------+
+| sum(price) |
++------------+
+|       1070 |
++------------+
+1 row in set (0.000 sec)
+
+4
+
+mysql> select avg(price) from fruit;
++------------+
+| avg(price) |
++------------+
+|   214.0000 |
++------------+
+1 row in set (0.001 sec)
+
+5
+
+mysql> select max(price) from fruit;
++------------+
+| max(price) |
++------------+
+|        600 |
++------------+
+1 row in set (0.000 sec)
+
+6
+・内部結合：２つのテーブルにおいて、双方にデータが存在するレコードを結合する。
+・外部結合：結合先のテーブルに該当するデータがなくても、 結果を求めてテーブルを作成できる
+
+7
+・左外部結合：左側のテーブルを優先する外部結合
+・右外部結合：右側のテーブルを優先する外部結合
+
+8
+
+mysql> select * from fruit as f1, fruit as f2 where f1.no = f2.no;
++------+--------+-------+------+--------+-------+
+| no   | name   | price | no   | name   | price |
++------+--------+-------+------+--------+-------+
+|    1 | apple  |   100 |    1 | apple  |   100 |
+|    2 | grape  |   130 |    2 | grape  |   130 |
+|    3 | banana |    90 |    3 | banana |    90 |
+|    4 | peach  |   150 |    4 | peach  |   150 |
+|    5 | meron  |   600 |    5 | meron  |   600 |
++------+--------+-------+------+--------+-------+
+5 rows in set (0.002 sec)
+
+9
+
+mysql> select hanbaicode, hanbaibi, syohin_tbl1.syohincode, syohinname, price from hanbai_tbl left join syohin_tbl1 on hanbai_tbl.syohincode = syohin_tbl1.syohincode;
++------------+------------+------------+------------+-------+
+| hanbaicode | hanbaibi   | syohincode | syohinname | price |
++------------+------------+------------+------------+-------+
+| H01005     | 2003-05-01 | A01001     | apple      |   100 |
+| H01001     | 2003-04-12 | G02002     | grape      |   130 |
+| H01003     | 2003-04-29 | B03003     | banana     |    90 |
+| H01010     | 2003-05-03 | NULL       | NULL       |   600 |
+| H01020     | 2003-05-10 | NULL       | NULL       |   150 |
++------------+------------+------------+------------+-------+
+5 rows in set (0.000 sec)
+
+mysql> select hanbaicode, hanbaibi, syohin_tbl1.syohincode, syohinname, price from syohin_tbl1 right join hanbai_tbl on hanbai_tbl.syohincode = syohin_tbl1.syohincode;
++------------+------------+------------+------------+-------+
+| hanbaicode | hanbaibi   | syohincode | syohinname | price |
++------------+------------+------------+------------+-------+
+| H01005     | 2003-05-01 | A01001     | apple      |   100 |
+| H01001     | 2003-04-12 | G02002     | grape      |   130 |
+| H01003     | 2003-04-29 | B03003     | banana     |    90 |
+| H01010     | 2003-05-03 | NULL       | NULL       |   600 |
+| H01020     | 2003-05-10 | NULL       | NULL       |   150 |
++------------+------------+------------+------------+-------+
+5 rows in set (0.000 sec)
+
+
+10
+交差結合は２つのテーブルのあらゆるデータ同士を組み合わせる結合であり、結合後のデータ数が２つのテーブルの積になるので、shinamono_tbl1とshinamono_tbl2はそれぞれ4件があって、結合後は4*4=16行になる。

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>第3回課題1</title>
+</head>
+<body>
+  <form method=post action="http://www.rsch.tuis.ac.jp/~ohmi/sys-prog/printenv.cgi" style="display: inline-block; padding: 15px; background-color: #f0f0f0;">
+    <p>
+      <input type=submit value="送るよ">
+      <input type=reset value="リセット">
+    </p>
+    <p>
+      メールアドレス
+      <input type=text size=15 name="addr">
+    </p>
+    <p>
+      パスワード
+      <input type=text size=15 name="pass">
+    </p>
+    <p>
+      欲しいものは？<br>
+      <input type=checkbox name="orange" value="1">オレンジ
+      <input type=checkbox name="lemon" value="1">レモン
+      <input type=checkbox name="apple" value="1">りんご
+    </p>
+    <p>年齢<br>
+      <input type=radio name="age" value="1">20才未満
+      <input type=radio name="age" value="2">60才未満
+      <input type=radio name="age" value="3">60才以上
+    </p>
+    <p>
+      地域選択
+      <select name="area">
+        <option selected value="0">分からない</option>
+        <option value="1">千葉県</option>
+        <option value="2">千葉県以外の関東</option>
+        <option value="3">関東以外</option>
+      </select>
+    </p>
+    <p>
+      補足事項を書いてください<br>
+      <textarea name=other rows=3 cols=35 onfocus="this.select()">とくになし</textarea>
+    </p>
+  </form>
+</body>
+</html>

@@ -1,0 +1,6 @@
+﻿var c = 30, d = 20;
+taihi = c;
+c = d;
+d = taihi;
+console.log("c="+c);
+console.log("d="+d);

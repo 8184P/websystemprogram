@@ -1,0 +1,22 @@
+1
+create table book (ISBN char(13) NOT NULL PRIMARY KEY, title varchar(225), author varchar(225), publisher varchar(225), pub_date date, price int(11));
+
+LOAD DATA INFILE "C:/Users/kasut/Desktop/book.csv" INTO table book fields terminated by ",";
+
+select * from book where price >= 1100 and price < 1200;
+
+2
+select title, pub_date, price from book where title like '%入門' and pub_date >= '2000-01-01' order by price;
+
+3
+create table user (user_id char(15) PRIMARY KEY, name varchar(255), address varchar(255), tel varchar(15), birth date, reg_date date);
+
+describe user;
+
+4
+LOAD DATA INFILE "C:/Users/kasut/Desktop/user.csv" into table user fields terminated by ",";
+
+select * from user;
+
+5
+select * from user where birth < '1980-01-01' and (address like '%千葉県%' or address like '%埼玉県%');
